@@ -1,11 +1,12 @@
 <!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>SWV</title><style>
 body{margin:0;background:#0d0e12;color:#fff;font-family:sans-serif}header{display:flex;justify-content:space-between;padding:10px;border-bottom:1px solid #1f2330}.container{display:flex;flex-wrap:wrap;padding:15px;gap:15px}.main-content{flex:2;min-width:300px}.video-wrapper{position:relative;padding-top:56.25%;border-radius:12px;overflow:hidden}.cyber-screen{position:absolute;top:0;left:0;width:100%;height:100%;background:linear-gradient(135deg,#0f2027,#2c5364);display:flex;justify-content:center;align-items:center;font-size:50px}
-.ad-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:#fbc02d;color:#000;display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:10;font-weight:bold}.ad-btn{background:#000;color:#fff;border:none;padding:10px;border-radius:4px;cursor:not-allowed;opacity:0.6}
-.video-toolbar{display:flex;justify-content:space-between;margin:10px 0}.subscribe-btn{background:#00d2ff;color:#0d0e12;border:none;padding:5px 15px;border-radius:15px;font-weight:bold}.action-buttons button{background:#161922;color:#fff;border:1px solid #2a2f42;padding:6px 12px;border-radius:10px}.comment-section{border-top:1px solid #1f2330;padding-top:10px}.comment-form{display:flex;gap:10px;margin-bottom:15px}.comment-form input{flex:1;background:none;border:none;border-bottom:1px solid #2a2f42;color:#fff;outline:none}.sidebar{flex:1;min-width:250px;display:flex;flex-direction:column;gap:10px}.recommend-card{display:flex;gap:10px;cursor:pointer;background:#161922;padding:8px;border-radius:8px}.thumbnail{width:100px;height:60px;border-radius:4px;display:flex;justify-content:center;align-items:center;font-size:20px}
+.ad-overlay{position:absolute;top:0;left:0;width:100%;height:100%;background:#fbc02d;color:#000;display:flex;flex-direction:column;justify-content:center;align-items:center;z-index:10;font-weight:bold;padding:20px;box-sizing:border-box;text-align:center}.ad-txt{font-size:20px;margin-bottom:12px;min-height:60px;display:flex;align-items:center;justify-content:center}
+.ad-btn{background:#000;color:#fff;border:none;padding:10px;border-radius:4px;cursor:not-allowed;opacity:0.6;font-weight:bold}.video-toolbar{display:flex;justify-content:space-between;margin:10px 0}.subscribe-btn{background:#00d2ff;color:#0d0e12;border:none;padding:5px 15px;border-radius:15px;font-weight:bold}.action-buttons button{background:#161922;color:#fff;border:1px solid #2a2f42;padding:6px 12px;border-radius:10px}.comment-section{border-top:1px solid #1f2330;padding-top:10px}.comment-form{display:flex;gap:10px;margin-bottom:15px}.comment-form input{flex:1;background:none;border:none;border-bottom:1px solid #2a2f42;color:#fff;outline:none}.sidebar{flex:1;min-width:250px;display:flex;flex-direction:column;gap:10px}.recommend-card{display:flex;gap:10px;cursor:pointer;background:#161922;padding:8px;border-radius:8px}.thumbnail{width:100px;height:60px;border-radius:4px;display:flex;justify-content:center;align-items:center;font-size:20px}
 </style></head><body>
 <header><div style="font-weight:800;color:#00d2ff">📺 SWV</div></header>
 <div class="container"><div class="main-content"><div class="video-wrapper">
-<div class="ad-overlay" id="adOverlay"><div>⚠️ スポンサー広告表示中</div><button class="ad-btn" id="adBtn">広告は 5 秒後...</button></div>
+<!-- 🛠 広告のテキストエリアにid="adTxt"を設置 -->
+<div class="ad-overlay" id="adOverlay"><div class="ad-txt" id="adTxt">🔥 ボスがお小遣いを出しすぎる神迷路！<br>新作『センプウェブ・迷路』今すぐプレイ！</div><button class="ad-btn" id="adBtn">広告は 5 秒後...</button></div>
 <div class="cyber-screen" id="mainScreen">🌿</div></div><h3 id="currentTitle">Leisurely grassland</h3><div class="video-toolbar">
 <div><button class="subscribe-btn" id="subBtn" onclick="toggleSub()">チャンネル登録</button></div>
 <div class="action-buttons"><button onclick="toggleLike()">👍 <span id="likeCount">125</span></button><button onclick="toggleDislike()">👎</button></div></div>
@@ -18,10 +19,40 @@ body{margin:0;background:#0d0e12;color:#fff;font-family:sans-serif}header{displa
 <div class="recommend-card" onclick="changeScreen('🌿','Leisurely grassland','linear-gradient(135deg,#0f2027,#2c5364)')"><div class="thumbnail" style="background:#0066ff">🌿</div><div><h4>Leisurely grassland</h4></div></div>
 <div class="recommend-card" onclick="changeScreen('🐰','Big Buck Bunny','linear-gradient(135deg,#3a1c1c,#1e0f0f)')"><div class="thumbnail" style="background:#ff416c">🐰</div><div><h4>Big Buck Bunny</h4></div></div></div></div>
 <script>
-const screen=document.getElementById('mainScreen'),title=document.getElementById('currentTitle'),subBtn=document.getElementById('subBtn'),adOverlay=document.getElementById('adOverlay'),adBtn=document.getElementById('adBtn');
-let likes=125,isLiked=false,isDisliked=false,timeLeft=5;
-const countdown=setInterval(()=>{timeLeft--;if(timeLeft>0)adBtn.innerText=`広告は ${timeLeft} 秒後にスキップできます`;else{clearInterval(countdown);adBtn.innerText="広告をスキップ ➔";adBtn.style.opacity=1;adBtn.style.cursor="pointer";adBtn.onclick=()=>adOverlay.style.display='none'}},1000);
-function changeScreen(emoji,t,bg){screen.innerText=emoji;screen.style.background=bg;title.innerText=t;adOverlay.style.display='flex';timeLeft=5;adBtn.innerText="広告は 5 秒後...";adBtn.onclick=null}
+const screen=document.getElementById('mainScreen'),title=document.getElementById('currentTitle'),subBtn=document.getElementById('subBtn'),adOverlay=document.getElementById('adOverlay'),adBtn=document.getElementById('adBtn'),adTxt=document.getElementById('adTxt');
+let likes=125,isLiked=false,isDisliked=false,timeLeft=5,countdown;
+
+// 🛠 3つの広告のテキストを配列に格納
+const adList = [
+    "🔥 ボスがお小遣いを出しすぎる神迷路！<br>新作『センプウェブ・迷路』今すぐプレイ！",
+    "💰 スパチャがもっと派手に光る！<br>『センプウェブ・ライブ拡張機能』登場！",
+    "🎬 全センプが泣いた感動の超大作！<br>映画『センプウェブ・ザ・ムービー』本日公開！"
+];
+let adIndex = 0; // いま何番目の広告かを表すカウンター
+
+function countdownLoop(){
+    countdown=setInterval(()=>{
+        timeLeft--;
+        if(timeLeft>0)adBtn.innerText=`広告は ${timeLeft} 秒後にスキップできます`;
+        else{
+            clearInterval(countdown);adBtn.innerText="広告をスキップ ➔";adBtn.style.opacity=1;adBtn.style.cursor="pointer";
+            adBtn.onclick=()=>{ 
+                clearInterval(countdown); 
+                timeLeft=5; 
+                adBtn.innerText="広告は 5 秒後..."; adBtn.style.opacity=0.6; adBtn.style.cursor="not-allowed"; adBtn.onclick=null; 
+                
+                // 🛠 スキップが押されたら、広告の番号を1つ進めてテキストを切り替える（3の次は0に戻るループ）
+                adIndex = (adIndex + 1) % adList.length;
+                adTxt.innerHTML = adList[adIndex];
+                
+                countdownLoop(); 
+            };
+        }
+    },1000);
+}
+countdownLoop();
+
+function changeScreen(emoji,t,bg){screen.innerText=emoji;screen.style.background=bg;title.innerText=t;adOverlay.style.display='flex';clearInterval(countdown);timeLeft=5;adBtn.innerText="広告は 5 秒後...";adBtn.onclick=null;countdownLoop()}
 function toggleSub(){const isSub=subBtn.innerText==="チャンネル登録";subBtn.innerText=isSub?"登録済み":"チャンネル登録";subBtn.style.background=isSub?"#212636":"#00d2ff";subBtn.style.color=isSub?"#fff":"#0d0e12"}
 function toggleLike(){const count=document.getElementById('likeCount');if(!isLiked){likes++;isLiked=true;if(isDisliked)toggleDislike()}else{likes--;isLiked=false}count.innerText=likes}
 function toggleDislike(){isDisliked=!isDisliked;if(isDisliked&&isLiked)toggleLike()}
